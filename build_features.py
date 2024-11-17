@@ -26,7 +26,7 @@ for (i, (trainPath, cleanedPath)) in enumerate(imagePaths):
     trainImage = cv2.copyMakeBorder(trainImage, 2, 2, 2, 2, cv2.BORDER_REPLICATE)
     cleanImage = cv2.copyMakeBorder(cleanImage, 2, 2, 2, 2, cv2.BORDER_REPLICATE)
 
-    trainImage = blur_and_threshold(trainImage)
+    trainImage = blur_and_threshold.blur_and_threshold(trainImage)
 
     cleanImage = cleanImage.astype("float") / 255.0
 
