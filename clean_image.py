@@ -4,44 +4,70 @@ from imutils import paths
 import pickle
 import random
 import cv2
+import matplotlib.pyplot as plt
 
 
 
-testing_path = "denoising-dirty-documents/test"
-sample_size = 10
 
-model = pickle.loads(open(config.MODEL_PATH, "rb").read())
+def load_model(model_path):
+    with open(model_path, "rb") as f:
+        return pickle.load(f)
 
-imagePaths = list(paths.list_images(testing_path))
-random.shuffle(imagePaths)
-imagePaths = imagePaths[:sample_size]
+def process_image(image, model):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    orig = gray.copy()
+    gray = cv2.copyMakeBorder(gray, 2, 2, 2, 2, cv2.BORDER_REPLICATE)
+    gray = blur_and_threshold(gray)
 
-for imagePath in imagePaths:
-    print("[INFO] processing {}".format(imagePath))
-    image = cv2.imread(imagePath)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    orig = image.copy()
-    image = cv2.copyMakeBorder(image, 2, 2, 2, 2, cv2.BORDER_REPLICATE)
-    image = blur_and_threshold(image)
+    roi_features = [
+        gray[y:y + 5, x:x + 5].flatten()
+        for y in range(gray.shape[0] - 4)
+        for x in range(gray.shape[1] - 4)
+    ]
 
-    roiFeatures = []
+    pixels = model.predict(roi_features)
+    output = (pixels.reshape(orig.shape) * 255).astype("uint8")
+    return orig, output
 
-    for y in range(0, image.shape[0]):
-        for x in range(0, image.shape[1]):
-            roi = image[y:y + 5, x:x + 5]
-            (rH, rW) = roi.shape[:2]
 
-            if rW != 5 or rH != 5:
-                continue
+def visualize_results(images, titles, fig_size=(12, 6)):
+    plt.figure(figsize=fig_size)
+    for i, (image, title) in enumerate(zip(images, titles)):
+        plt.subplot(1, len(images), i + 1)
+        plt.imshow(image, cmap='gray')
+        plt.title(title)
+        plt.axis("off")
+    plt.tight_layout()
+    plt.show()
 
-            features = roi.flatten()
-            roiFeatures.append(features)
+def main():
+    testing_path = "denoising-dirty-documents/test"
+    sample_size = 10
 
-    pixels = model.predict(roiFeatures)
+    print("[INFO] Loading model...")
+    model = load_model(config.MODEL_PATH)
 
-    pixels = pixels.reshape(orig.shape)
-    output = (pixels * 255).astype("uint8")
+    image_paths = list(paths.list_images(testing_path))
+    random.shuffle(image_paths)
+    image_paths = image_paths[:sample_size]
 
-    cv2.imshow("Original", orig)
-    cv2.imshow("Output", output)
-    cv2.waitKey(0)
+    try:
+        for image_path in image_paths:
+            print(f"[INFO] Processing {image_path}")
+            image = cv2.imread(image_path)
+
+            # Process the image
+            orig, output = process_image(image, model)
+
+            # Visualize original and processed images side by side
+            visualize_results([orig, output], ["Original", "Output"])
+    except KeyboardInterrupt:
+        print("\n[INFO] Program interrupted by user. Exiting the program...")
+    except Exception as e:
+        print(f"[ERROR] An unexpected error occurred: {e}")
+    finally:
+        print("[INFO] Cleaning up resources...")
+
+
+if __name__ == "__main__":
+    main()

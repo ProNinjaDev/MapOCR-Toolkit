@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d64f8b0-fce0-45be-a88f-8fd2b146c65d" name="Changes" comment="Add train_cleaner.py. Create features.csv and cleaner.pickle">
-      <change afterPath="$PROJECT_DIR$/clean_image.py" afterDir="false" />
+    <list default="true" id="5d64f8b0-fce0-45be-a88f-8fd2b146c65d" name="Changes" comment="Realize the application of the model">
+      <change afterPath="$PROJECT_DIR$/qodana.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clean_image.py" beforeDir="false" afterPath="$PROJECT_DIR$/clean_image.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image_processing/blur_and_threshold.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_processing/blur_and_threshold.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +37,9 @@
     &quot;accountId&quot;: &quot;0d10b0c3-7710-4726-ac4e-8587d6f475dc&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -52,9 +57,26 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+    "settings.editor.selected.configurable": "settings.qodana"
   }
 }]]></component>
+  <component name="QodanaHighlightedReportService">
+    <option name="localRunNotPublishedPersistedInfo">
+      <LocalReportPersistedInfo>
+        <option name="path" value="C:\Users\Anton\AppData\Local\Temp\qodana_output\qodana.sarif.json" />
+        <option name="reportGuid" value="ea3c3854-5fcc-478d-84c3-6e6ae337e340" />
+        <option name="reportName" value="MapOCR-Toolkit/qodana/2024-11-20" />
+      </LocalReportPersistedInfo>
+    </option>
+  </component>
+  <component name="QodanaIsSelectedPersistenceService">
+    <option name="selectedOrLoading" value="true" />
+  </component>
+  <component name="QodanaReportsService">
+    <option name="descriptions">
+      <ReportDescription localRun="true" path="C:\Users\Anton\AppData\Local\Temp\qodana_output\qodana.sarif.json" reportGuid="ea3c3854-5fcc-478d-84c3-6e6ae337e340" reportId="MapOCR-Toolkit/qodana/2024-11-20" />
+    </option>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -87,7 +109,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731870086433</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Realize the application of the model">
+      <option name="closed" value="true" />
+      <created>1732031854533</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1732031854533</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -104,6 +134,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add configuration file, dataset from Kaggle, blur and thresholding function, feature extraction from images for further transfer to training in artificial intelligence model" />
     <MESSAGE value="Add train_cleaner.py. Create features.csv and cleaner.pickle" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add train_cleaner.py. Create features.csv and cleaner.pickle" />
+    <MESSAGE value="Realize the application of the model" />
+    <option name="LAST_COMMIT_MESSAGE" value="Realize the application of the model" />
   </component>
 </project>
