@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d64f8b0-fce0-45be-a88f-8fd2b146c65d" name="Changes" comment="Improve code structure and handle safe program interruption&#10;&#10;- Add KeyboardInterrupt handling for graceful termination.&#10;- Optimize ROI processing with a sliding window approach.&#10;- Replace cv2.imshow with matplotlib for better visualization.&#10;- Refactor code into reusable functions for clarity and maintainability.&#10;- Add error handling and cleanup logic to ensure proper resource management.">
-      <change afterPath="$PROJECT_DIR$/pdf_cleaner.py" afterDir="false" />
+    <list default="true" id="5d64f8b0-fce0-45be-a88f-8fd2b146c65d" name="Changes" comment="Start to develop implement PDF to images conversion and image cleaning pipeline&#10;&#10;- Added function `convert_pdf_to_images` to convert PDF pages into images using pdf2image.&#10;- Implemented `process_pdf_pages` for processing and cleaning images using the pre-trained model.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/cleaning_image_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/cleaning_image_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clean_image.py" beforeDir="false" afterPath="$PROJECT_DIR$/clean_image.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pdf_cleaner.py" beforeDir="false" afterPath="$PROJECT_DIR$/pdf_cleaner.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +52,7 @@
   &quot;keyToString&quot;: {
     &quot;Python.build_features.executor&quot;: &quot;Run&quot;,
     &quot;Python.clean_image.executor&quot;: &quot;Run&quot;,
+    &quot;Python.pdf_cleaner.executor&quot;: &quot;Run&quot;,
     &quot;Python.train_cleaner.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
@@ -59,9 +60,21 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
+  <component name="QodanaHighlightedReportService">
+    <option name="localRunNotPublishedPersistedInfo">
+      <LocalReportPersistedInfo>
+        <option name="path" value="C:\Users\Anton\AppData\Local\Temp\qodana_output\qodana.sarif.json" />
+        <option name="reportGuid" value="c018750a-db4e-4c2f-88ad-b3f16da0ca34" />
+        <option name="reportName" value="MapOCR-Toolkit/qodana/2024-11-26" />
+      </LocalReportPersistedInfo>
+    </option>
+  </component>
+  <component name="QodanaIsSelectedPersistenceService">
+    <option name="selectedOrLoading" value="true" />
+  </component>
   <component name="QodanaReportsService">
     <option name="descriptions">
-      <ReportDescription localRun="true" path="C:\Users\Anton\AppData\Local\Temp\qodana_output\qodana.sarif.json" reportGuid="ea3c3854-5fcc-478d-84c3-6e6ae337e340" reportId="MapOCR-Toolkit/qodana/2024-11-20" />
+      <ReportDescription localRun="true" path="C:\Users\Anton\AppData\Local\Temp\qodana_output\qodana.sarif.json" reportGuid="c018750a-db4e-4c2f-88ad-b3f16da0ca34" reportId="MapOCR-Toolkit/qodana/2024-11-26" />
     </option>
   </component>
   <component name="RecentsManager">
@@ -118,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732095471198</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Start to develop implement PDF to images conversion and image cleaning pipeline&#10;&#10;- Added function `convert_pdf_to_images` to convert PDF pages into images using pdf2image.&#10;- Implemented `process_pdf_pages` for processing and cleaning images using the pre-trained model.">
+      <option name="closed" value="true" />
+      <created>1732570514539</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1732570514539</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -137,6 +158,7 @@
     <MESSAGE value="Add train_cleaner.py. Create features.csv and cleaner.pickle" />
     <MESSAGE value="Realize the application of the model" />
     <MESSAGE value="Improve code structure and handle safe program interruption&#10;&#10;- Add KeyboardInterrupt handling for graceful termination.&#10;- Optimize ROI processing with a sliding window approach.&#10;- Replace cv2.imshow with matplotlib for better visualization.&#10;- Refactor code into reusable functions for clarity and maintainability.&#10;- Add error handling and cleanup logic to ensure proper resource management." />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve code structure and handle safe program interruption&#10;&#10;- Add KeyboardInterrupt handling for graceful termination.&#10;- Optimize ROI processing with a sliding window approach.&#10;- Replace cv2.imshow with matplotlib for better visualization.&#10;- Refactor code into reusable functions for clarity and maintainability.&#10;- Add error handling and cleanup logic to ensure proper resource management." />
+    <MESSAGE value="Start to develop implement PDF to images conversion and image cleaning pipeline&#10;&#10;- Added function `convert_pdf_to_images` to convert PDF pages into images using pdf2image.&#10;- Implemented `process_pdf_pages` for processing and cleaning images using the pre-trained model." />
+    <option name="LAST_COMMIT_MESSAGE" value="Start to develop implement PDF to images conversion and image cleaning pipeline&#10;&#10;- Added function `convert_pdf_to_images` to convert PDF pages into images using pdf2image.&#10;- Implemented `process_pdf_pages` for processing and cleaning images using the pre-trained model." />
   </component>
 </project>

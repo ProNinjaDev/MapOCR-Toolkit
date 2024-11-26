@@ -1,23 +1,28 @@
-from pdf2image import convert_from_path
 import os
 from config import cleaning_image_config as config
 from clean_image import load_model, process_image
 import cv2
+import pymupdf
+import fitz
+import numpy as np
 
 
 
 
-def convert_pdf_to_images(pdf_path, output_folder, dpi=300):
+def convert_pdf_to_images(pdf_path, output_folder, dpi=50): # todo: При dpi > 50 качество изображение, которое пока мне не нужно
     print("[INFO] Converting PDF to images...")
-    pages = convert_from_path(pdf_path, dpi=dpi)
+    pdf_document = fitz.open(pdf_path)
     image_paths = []
 
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
-    for i, page in enumerate(pages):
-        image_path = os.path.join(output_folder, f"page_{i + 1}.png")
-        page.save(image_path, "PNG")
+    for page_number in range(len(pdf_document)):
+        page = pdf_document[page_number]
+        image = page.get_pixmap(dpi=dpi)
+
+        image_path = os.path.join(output_folder, f"page_{page_number + 1}.png")
+        image.save(image_path, "PNG")
         image_paths.append(image_path)
 
     print(f"[INFO] PDF converted into {len(image_paths)} images.")
@@ -36,12 +41,13 @@ def process_pdf_pages(image_paths, model, output_folder):
 
         # Сохраняем изображение
         output_path = os.path.join(output_folder, os.path.basename(image_path))
+        print(f"Type of output: {type(output)}")
         cv2.imwrite(output_path, output)
 
     print(f"[INFO] All cleaned images saved to {output_folder}")
 
 def main():
-    pdf_path = "Cartography file.pdf"
+    pdf_path = "megaTest.pdf"
     temp_images_folder = config.TEMP_PATH
     cleaned_images_folder = config.PDF_PATH
 
@@ -53,6 +59,7 @@ def main():
 
         process_pdf_pages(image_paths, model, cleaned_images_folder)
 
+        print("[INFO] PDF cleaning process completed successfully.")
 
     except Exception as e:
         print(f"[ERROR] An unexpected error occurred: {e}")
@@ -61,4 +68,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main() # todo: разобраться, почему не хочет работать

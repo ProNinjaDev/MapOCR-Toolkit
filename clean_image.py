@@ -26,7 +26,7 @@ def process_image(image, model):
     ]
 
     pixels = model.predict(roi_features)
-    output = (pixels.reshape(orig.shape) * 255).astype("uint8")
+    output = (pixels.reshape(orig.shape) * 255).astype("uint8") # Преобразование одномерного в двумерный массив
     return orig, output
 
 
