@@ -2,14 +2,14 @@ import os
 from config import cleaning_image_config as config
 from clean_image import load_model, process_image
 import cv2
-import pymupdf
 import fitz
 import numpy as np
 
 
 
 
-def convert_pdf_to_images(pdf_path, output_folder, dpi=50): # todo: При dpi > 50 качество изображение, которое пока мне не нужно
+# При dpi > 50 качество изображение, которое пока мне не нужно
+def convert_pdf_to_images(pdf_path, output_folder, dpi=75):
     print("[INFO] Converting PDF to images...")
     pdf_document = fitz.open(pdf_path)
     image_paths = []
@@ -39,10 +39,27 @@ def process_pdf_pages(image_paths, model, output_folder):
         # Очищаем изображение
         trash, output = process_image(image, model)
 
+        # Проверка данных
+        print(f"[DEBUG] output.shape: {output.shape}, output.dtype: {output.dtype}")
+        if output.size == 0:
+            raise ValueError("Output image is empty.")
+        if np.all(output == 0):
+            print(f"[WARNING] Output image for {image_path} is completely black.")
+        if np.isnan(output).any():
+            raise ValueError("Output image contains NaN values.")
+
+        if not os.access(output_folder, os.W_OK):
+            raise PermissionError(f"Cannot write to the folder: {output_folder}")
+
         # Сохраняем изображение
         output_path = os.path.join(output_folder, os.path.basename(image_path))
         print(f"Type of output: {type(output)}")
         cv2.imwrite(output_path, output)
+
+        if os.path.exists(output_path):
+            print(f"[INFO] Successfully saved: {output_path}")
+        else:
+            print(f"[ERROR] Failed to save image: {output_path}")
 
     print(f"[INFO] All cleaned images saved to {output_folder}")
 
@@ -68,4 +85,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main() # todo: разобраться, почему не хочет работать
+    main()
