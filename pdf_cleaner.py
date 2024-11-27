@@ -4,6 +4,7 @@ from clean_image import load_model, process_image
 import cv2
 import fitz
 import numpy as np
+from work_on_blocks.blocks_smash import split_into_blocks, merge_into_image
 
 
 
@@ -35,26 +36,29 @@ def process_pdf_pages(image_paths, model, output_folder):
     for image_path in image_paths:
         print(f"[INFO] Processing {image_path}")
         image = cv2.imread(image_path)
+        left_block, right_block, bottom_block = split_into_blocks(image)
 
         # Очищаем изображение
-        trash, output = process_image(image, model)
+        processed_left = process_image(left_block, model)[1]
+        processed_right = process_image(right_block, model)[1]
+        processed_bottom = process_image(bottom_block, model)[1]
+
+        final_image = merge_into_image(processed_left, processed_right, processed_bottom, image.shape[:2])
 
         # Проверка данных
-        print(f"[DEBUG] output.shape: {output.shape}, output.dtype: {output.dtype}")
-        if output.size == 0:
+        print(f"[DEBUG] output.shape: {final_image.shape}, output.dtype: {final_image.dtype}")
+        if final_image.size == 0:
             raise ValueError("Output image is empty.")
-        if np.all(output == 0):
+        if np.all(final_image == 0):
             print(f"[WARNING] Output image for {image_path} is completely black.")
-        if np.isnan(output).any():
+        if np.isnan(final_image).any():
             raise ValueError("Output image contains NaN values.")
 
         if not os.access(output_folder, os.W_OK):
             raise PermissionError(f"Cannot write to the folder: {output_folder}")
-
         # Сохраняем изображение
         output_path = os.path.join(output_folder, os.path.basename(image_path))
-        print(f"Type of output: {type(output)}")
-        cv2.imwrite(output_path, output)
+        cv2.imwrite(output_path, final_image)
 
         if os.path.exists(output_path):
             print(f"[INFO] Successfully saved: {output_path}")
