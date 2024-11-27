@@ -28,8 +28,6 @@ def process_image(image, model):
     pixels = model.predict(roi_features)
     output = (pixels.reshape(orig.shape) * 255).astype("uint8") # Преобразование одномерного в двумерный массив
 
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 1))
-    output = cv2.morphologyEx(output, cv2.MORPH_CLOSE, kernel)
     return orig, output
 
 
