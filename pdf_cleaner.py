@@ -36,14 +36,15 @@ def process_pdf_pages(image_paths, model, output_folder):
     for image_path in image_paths:
         print(f"[INFO] Processing {image_path}")
         image = cv2.imread(image_path)
-        left_block, right_block, bottom_block = split_into_blocks(image)
+        left_top_block, right_top_block, left_bottom_block, right_bottom_block = split_into_blocks(image)
 
         # Очищаем изображение
-        processed_left = process_image(left_block, model)[1]
-        processed_right = process_image(right_block, model)[1]
-        processed_bottom = process_image(bottom_block, model)[1]
+        processed_left_top = process_image(left_top_block, model)[1]
+        processed_right_top = process_image(right_top_block, model)[1]
+        processed_left_bottom = process_image(left_bottom_block, model)[1]
+        processed_right_bottom = process_image(right_bottom_block, model)[1]
 
-        final_image = merge_into_image(processed_left, processed_right, processed_bottom, image.shape[:2])
+        final_image = merge_into_image(processed_left_top, processed_right_top, processed_left_bottom, processed_right_bottom, image.shape[:2])
 
         # Проверка данных
         print(f"[DEBUG] output.shape: {final_image.shape}, output.dtype: {final_image.dtype}")

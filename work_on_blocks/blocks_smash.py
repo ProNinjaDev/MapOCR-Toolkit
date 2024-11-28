@@ -9,15 +9,16 @@ def split_into_blocks(image):
     vertical_border = weight // 2
 
     # Два портретных блока
-    left_block = image[:horizontal_border, :vertical_border]
-    right_block = image[:horizontal_border, vertical_border:]
+    left_top_block = image[:horizontal_border, :vertical_border]
+    right_top_block = image[:horizontal_border, vertical_border:]
 
     # Альбомный блок
-    bottom_block = image[horizontal_border:, :]
+    left_bottom_block = image[horizontal_border:, :vertical_border]
+    right_bottom_block = image[horizontal_border:, vertical_border:]
 
-    return left_block, right_block, bottom_block
+    return left_top_block, right_top_block, left_bottom_block, right_bottom_block
 
-def merge_into_image(left_block, right_block, bottom_block, image_size):
+def merge_into_image(left_top_block, right_top_block, left_bottom_block, right_bottom_block, image_size):
     height, weight = image_size
 
     horizontal_border = height // 2
@@ -26,8 +27,10 @@ def merge_into_image(left_block, right_block, bottom_block, image_size):
     # Пустое изображение
     image = np.zeros((height, weight), dtype="uint8")
 
-    image[:horizontal_border, :vertical_border] = left_block
-    image[:horizontal_border, vertical_border:] = right_block
-    image[horizontal_border:, :] = bottom_block
+    image[:horizontal_border, :vertical_border] = left_top_block
+    image[:horizontal_border, vertical_border:] = right_top_block
+    image[horizontal_border:, :vertical_border] = left_bottom_block
+    image[horizontal_border:, vertical_border:] = right_bottom_block
+
 
     return image

@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d64f8b0-fce0-45be-a88f-8fd2b146c65d" name="Changes" comment="Create a division of the image into blocks&#10;&#10;- split_into_blocks() splits the image into 3 blocks (2 portrait and 1 landscape)&#10;- merge_into_image() merges three blocks of an image into a single block">
+    <list default="true" id="5d64f8b0-fce0-45be-a88f-8fd2b146c65d" name="Changes" comment="Realize the transfer of the image model divided into 3 blocks">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pdf_cleaner.py" beforeDir="false" afterPath="$PROJECT_DIR$/pdf_cleaner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work_on_blocks/blocks_smash.py" beforeDir="false" afterPath="$PROJECT_DIR$/work_on_blocks/blocks_smash.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +146,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732719366641</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Realize the transfer of the image model divided into 3 blocks">
+      <option name="closed" value="true" />
+      <created>1732721537678</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1732721537678</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -168,6 +177,7 @@
     <MESSAGE value="Change pdf2image to pymupdf&#10;&#10;- Convert pdf pages to *.png files and save it" />
     <MESSAGE value="Fix bugs" />
     <MESSAGE value="Create a division of the image into blocks&#10;&#10;- split_into_blocks() splits the image into 3 blocks (2 portrait and 1 landscape)&#10;- merge_into_image() merges three blocks of an image into a single block" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create a division of the image into blocks&#10;&#10;- split_into_blocks() splits the image into 3 blocks (2 portrait and 1 landscape)&#10;- merge_into_image() merges three blocks of an image into a single block" />
+    <MESSAGE value="Realize the transfer of the image model divided into 3 blocks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Realize the transfer of the image model divided into 3 blocks" />
   </component>
 </project>
