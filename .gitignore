@@ -6,3 +6,5 @@ __pycache__/
 temp_images/
 cleared_images/
 .idea/
+.venv/
+cleaner.pickle
