@@ -5,11 +5,11 @@ import os
 
 
 
-clear_image_path = 'cleared_images/page_1.png'
+clean_image_path = 'cleared_images/page_1.png'
 raw_image_path = 'temp_images/page_1.png'
 
-clear_img = Image.open(clear_image_path)
-clear_text_tes = pytesseract.image_to_string(clear_img, lang='rus')
+clean_img = Image.open(clean_image_path)
+clean_text_tes = pytesseract.image_to_string(clean_img, lang='rus')
 raw_img = Image.open(raw_image_path)
 raw_text_tes = pytesseract.image_to_string(raw_img, lang='rus')
 
@@ -24,12 +24,24 @@ except FileNotFoundError:
     exit()
 
 if text_truth:
-    lev_distance_raw = Levenshtein.distance(raw_text_tes, text_truth)
-    lev_distance_clear = Levenshtein.distance(clear_text_tes, text_truth)
+    lev_distance_raw_cer = Levenshtein.distance(raw_text_tes, text_truth)
+    lev_distance_clean_cer = Levenshtein.distance(clean_text_tes, text_truth)
 
-    cer_raw = lev_distance_raw / len(text_truth)
-    cer_clear = lev_distance_clear / len(text_truth)
-    print(f'Raw image CER = {cer_raw}')
-    print(f'Clear image CER = {cer_clear}')
+    cer_raw = lev_distance_raw_cer / len(text_truth)
+    cer_clean = lev_distance_clean_cer / len(text_truth)
+    print(f'Raw image CER = {cer_raw:.4f}')
+    print(f'Clean image CER = {cer_clean:.4f}')
 
+    raw_words = raw_text_tes.split()
+    clean_words = clean_text_tes.split()
+    truth_words = text_truth.split()
+
+    lev_distance_raw_wer = Levenshtein.distance(raw_words, truth_words)
+    lev_distance_clean_wer = Levenshtein.distance(clean_words, truth_words)
+
+    wer_raw = lev_distance_raw_wer / len(truth_words)
+    wer_clean = lev_distance_clean_wer / len(truth_words)
+
+    print(f'Raw image WER = {wer_raw:.4f}')
+    print(f'Clean image WER = {wer_clean:.4f}')
 
