@@ -1,0 +1,8 @@
+denoising-dirty-documents/
+Cartography file.pdf
+features.csv
+megaTest.pdf
+__pycache__/
+temp_images/
+cleared_images/
+.idea/
