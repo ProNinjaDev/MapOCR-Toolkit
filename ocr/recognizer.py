@@ -9,9 +9,9 @@ clean_image_path = 'cleared_images/page_1.png'
 raw_image_path = 'temp_images/page_1.png'
 
 clean_img = Image.open(clean_image_path)
-clean_text_tes = pytesseract.image_to_string(clean_img, lang='rus')
+clean_text_tes = pytesseract.image_to_string(clean_img, lang='rus', config='--oem 1 --psm 1')
 raw_img = Image.open(raw_image_path)
-raw_text_tes = pytesseract.image_to_string(raw_img, lang='rus')
+raw_text_tes = pytesseract.image_to_string(raw_img, lang='rus', config='--oem 1 --psm 1')
 
 ground_truth_path = 'ground_truth/page_1.txt'
 text_truth = ''
@@ -45,3 +45,8 @@ if text_truth:
     print(f'Raw image WER = {wer_raw:.4f}')
     print(f'Clean image WER = {wer_clean:.4f}')
 
+    #print('Clean text:')
+    #print(clean_text_tes)
+    #print('Raw text:')
+    #print(raw_text_tes)
+    
