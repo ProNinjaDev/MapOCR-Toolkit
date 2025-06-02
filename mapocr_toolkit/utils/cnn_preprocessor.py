@@ -5,7 +5,7 @@ from keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
 import os
 
-def prepare_cnn_data(data_items, class_to_int_map, target_size=(60, 200), val_split_size=0.2, random_state_value=42):
+def prepare_cnn_data(data_items, class_to_int_map, target_size=(60, 200), val_split_size=0.35, random_state_value=42):
 
     images = []
     raw_class_labels = []
