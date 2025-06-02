@@ -31,7 +31,7 @@ def get_max_seq_length(text_list):
 
 def texts_to_padded_sequences(text_list, char_to_int_map, max_len):
     sequences = []
-    pad_index = char_to_int_map[PAD_CHAR] # пока что ноль
+    pad_index = char_to_int_map[PAD_CHAR]
 
     for text in text_list:
         encoded_sequence = [char_to_int_map.get(char, pad_index) for char in text]
@@ -65,6 +65,10 @@ def prepare_rnn_data(data_items, class_to_int_map, val_split_size=0.2, random_st
         except Exception as ex:
             print('[ERROR] Couldnt read the file')
             continue
+
+    if not texts:
+        empty_np_array = np.array([])
+        return (empty_np_array, empty_np_array), (empty_np_array, empty_np_array), None
     
     char_map, _, num_chars_dict = create_char_vocabulary(texts)
     max_len_seq = get_max_seq_length(texts)
