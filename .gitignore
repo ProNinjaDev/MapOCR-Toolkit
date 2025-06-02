@@ -1,10 +1,17 @@
-denoising-dirty-documents/
-Cartography file.pdf
-features.csv
-megaTest.pdf
-__pycache__/
-temp_images/
-cleared_images/
 .idea/
 .venv/
-cleaner.pickle
+__pycache__/
+
+denoising-dirty-documents/
+Cartography file.pdf
+megaTest.pdf
+features.csv
+cleared_images/
+temp_images/
+models/cleaner.pickle
+data/raw_demo_text/
+structure_proj.md
+
+*.log
+
+*.keras
