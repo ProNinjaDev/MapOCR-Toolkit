@@ -4,10 +4,10 @@ from keras.layers import LSTM, Dense, Dropout, TimeDistributed
 from keras.utils import to_categorical
 import numpy as np
 
-def create_char_level_lstm_model(max_seq_len, num_chars, num_classes=6):
+def create_char_level_lstm_model(max_sequence_length, num_chars, num_classes=6):
     model = Sequential()
 
-    model.add(LSTM(128, input_shape=(max_seq_len, num_chars)))
+    model.add(LSTM(128, input_shape=(max_sequence_length, num_chars)))
     model.add(Dense(64, activation='relu'))
     model.add(Dropout(0.5))
     model.add(Dense(num_classes, activation='softmax'))
@@ -22,7 +22,7 @@ if __name__ == '__main__':
     example_num_chars = 35
     example_num_classes = 6
 
-    model = create_char_level_lstm_model(max_seq_len=example_max_seq_len, 
+    model = create_char_level_lstm_model(max_sequence_length=example_max_seq_len, 
                                          num_chars=example_num_chars, 
                                          num_classes=example_num_classes)
     model.summary()

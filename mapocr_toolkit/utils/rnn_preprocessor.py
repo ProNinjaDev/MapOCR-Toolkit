@@ -57,13 +57,13 @@ def prepare_rnn_data(data_items, class_to_int_map, val_split_size=0.2, random_st
     texts = []
     raw_class_labels = []
 
-    for item_path, item_label in data_items:
+    for _image_path, text_path, item_label in data_items:
         try:
-            with open(item_path, 'r', encoding='utf-8') as f:
+            with open(text_path, 'r', encoding='utf-8') as f:
                 texts.append(f.read().strip())
             raw_class_labels.append(item_label)
         except Exception as ex:
-            print('[ERROR] Couldnt read the file')
+            print(f'[ERROR] Could not read the file {text_path}: {ex}')
             continue
 
     if not texts:

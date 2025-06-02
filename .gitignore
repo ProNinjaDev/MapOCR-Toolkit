@@ -13,3 +13,5 @@ data/raw_demo_text/
 structure_proj.md
 
 *.log
+
+*.keras

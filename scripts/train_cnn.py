@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(current_dir) 
@@ -61,7 +62,22 @@ def main():
         final_val_accuracy = history.history['val_accuracy'][-1]
         print(f"[INFO] Final validation accuracy: {final_val_accuracy:.4f}")
     
-    # TODO: Добавить сохранение модели и процессинг инфо
+    print("[INFO] Saving model and processing_info...")
+
+    save_dir = os.path.join(project_root, "models", "demo", "cnn")
+    os.makedirs(save_dir, exist_ok=True)
+
+    model_save_path = os.path.join(save_dir, "cnn_model.keras")
+    model.save(model_save_path)
+    print(f"[INFO] CNN model saved to {model_save_path}")
+
+    processing_info['class_to_int'] = class_to_int
+    processing_info['int_to_class'] = int_to_class
+
+    info_save_path = os.path.join(save_dir, "cnn_processing_info.json")
+    with open(info_save_path, 'w') as f:
+        json.dump(processing_info, f, indent=4)
+    print(f"[INFO] CNN processing_info saved to {info_save_path}")
 
 
 if __name__ == '__main__':
