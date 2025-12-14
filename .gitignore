@@ -15,3 +15,5 @@ structure_proj.md
 *.log
 
 *.keras
+*.tif
+*.jpg
