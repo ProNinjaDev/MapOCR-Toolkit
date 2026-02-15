@@ -43,7 +43,7 @@ def prepare_cnn_data(data_items, class_to_int_map, target_size=(60, 200), val_sp
                                                       y_one_hot_labels, 
                                                       test_size=val_split_size, 
                                                       random_state=random_state_value,
-                                                      stratify=y_one_hot_labels)
+                                                      ) # была стратификация
 
     processing_info = {
         'target_size': target_size,

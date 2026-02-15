@@ -4,10 +4,11 @@ import shutil
 import re
 
 # Настройки
-INPUT_CSV = os.path.join('data', 'dataset_v1.csv')
-OUTPUT_CSV = os.path.join('data', 'dataset_CLEANED.csv')
-IMGS_DIR = os.path.join('data', 'dataset_crops')
-GARBAGE_DIR = os.path.join('data', 'dataset_crops', 'garbage')
+# INPUT_CSV = os.path.join('data', 'dataset_v1.csv')
+INPUT_CSV = os.path.join('data', 'dataset_paddle.csv')
+OUTPUT_CSV = os.path.join('data', 'dataset_CLEANED_v2.csv')
+IMGS_DIR = os.path.join('data', 'dataset_crops_v2')
+GARBAGE_DIR = os.path.join('data', 'dataset_crops_v2', 'garbage')
 
 # тех инфа
 STOP_WORDS = [

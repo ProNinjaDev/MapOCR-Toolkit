@@ -35,9 +35,7 @@ def texts_to_padded_sequences(text_list, char_to_int_map, max_len):
 
     for text in text_list:
         encoded_sequence = [char_to_int_map.get(char, pad_index) for char in text]
-        
         current_len = len(encoded_sequence)
-
         if current_len > max_len:
             padded_sequence_np = np.array(encoded_sequence[:max_len])
         elif current_len < max_len:
@@ -45,9 +43,7 @@ def texts_to_padded_sequences(text_list, char_to_int_map, max_len):
             padded_sequence_np = np.pad(np.array(encoded_sequence), (0, padding_size), mode='constant', constant_values=pad_index)
         else:
             padded_sequence_np = np.array(encoded_sequence)
-        
         sequences.append(padded_sequence_np)
-    
     return np.array(sequences)
 
 def one_hot_encode_padded_sequences(padded_sequences_array, num_chars_vocab):
@@ -57,14 +53,9 @@ def prepare_rnn_data(data_items, class_to_int_map, val_split_size=0.2, random_st
     texts = []
     raw_class_labels = []
 
-    for _image_path, text_path, item_label in data_items:
-        try:
-            with open(text_path, 'r', encoding='utf-8') as f:
-                texts.append(f.read().strip())
-            raw_class_labels.append(item_label)
-        except Exception as ex:
-            print(f'[ERROR] Could not read the file {text_path}: {ex}')
-            continue
+    for _image_path, text_content, item_label in data_items:
+        texts.append(str(text_content).strip())
+        raw_class_labels.append(item_label)
 
     if not texts:
         empty_np_array = np.array([])
@@ -84,7 +75,7 @@ def prepare_rnn_data(data_items, class_to_int_map, val_split_size=0.2, random_st
                                                       y_one_hot_labels,
                                                       test_size=val_split_size,
                                                       random_state=random_state_value,
-                                                      stratify=y_one_hot_labels)
+                                                      ) # была стратификация
     processing_info = {'char_to_int_map': char_map,
                        'max_seq_len': max_len_seq,
                        'num_chars_vocab': num_chars_dict,
@@ -92,7 +83,3 @@ def prepare_rnn_data(data_items, class_to_int_map, val_split_size=0.2, random_st
                        'int_to_class_map': {int_label: str_label for str_label, int_label in class_to_int_map.items()}}
     
     return (x_train, y_train), (x_val, y_val), processing_info
-
-
-if __name__ == '__main__':
-    pass
