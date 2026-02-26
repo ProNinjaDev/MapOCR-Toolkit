@@ -122,7 +122,7 @@ def process_tiffs_v3_robust():
                              pass
                     
                     # Получаем списки
-                    boxes = data.get('rec_boxes', data.get('dt_polys', []))
+                    boxes = data.get('dt_polys', [])
                     texts = data.get('rec_texts', data.get('rec_text', []))
                     scores = data.get('rec_scores', data.get('rec_score', []))
 
