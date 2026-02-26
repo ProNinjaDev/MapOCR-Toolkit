@@ -7,7 +7,7 @@ import re
 # INPUT_CSV = os.path.join('data', 'dataset_v1.csv')
 INPUT_CSV = os.path.join('data', 'dataset_paddle.csv')
 OUTPUT_CSV = os.path.join('data', 'dataset_CLEANED_v2.csv')
-IMGS_DIR = os.path.join('data', 'dataset_crops_v2')
+IMGS_DIR = os.path.join('data', 'dataset_crops_paddle')
 GARBAGE_DIR = os.path.join('data', 'dataset_crops_v2', 'garbage')
 
 # тех инфа
