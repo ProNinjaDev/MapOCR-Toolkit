@@ -29,6 +29,9 @@ ocr = PaddleOCR(
     lang='ru',
     text_det_limit_side_len=SLICE_SIZE + 100,
     text_det_limit_type='max',
+    use_doc_orientation_classify=False,  # не определять угол поворота документа
+    use_doc_unwarping=False,             # не выпрямлять геометрические искажения
+    use_textline_orientation=False,      # не поворачивать отдельные строки текста
 )
 # =============================================
 
@@ -84,7 +87,10 @@ def process_tiffs():
                     # === РАСПОЗНАВАНИЕ ===
                     try:
                         results = list(ocr.predict(slice_img))
-                    except Exception:
+                    except Exception as e:
+                        print(f"\n[SLICE ERROR] Слайс y={y_start} x={x_start}: {type(e).__name__}: {e}")
+                        import traceback
+                        traceback.print_exc()
                         pbar.update(1)
                         continue
 
