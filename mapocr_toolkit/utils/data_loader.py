@@ -5,7 +5,7 @@ import pandas as pd
 
 
 DEFAULT_LABELS_FILE_PATH = os.path.join('data', 'dataset_CLEANED.csv')
-RAW_IMAGES_DIR = os.path.join('data', 'dataset_crops')
+RAW_IMAGES_DIR = os.path.join('data', 'dataset_crops_paddle')
 REQUIRED_COLUMNS = {'filename', 'label', 'ocr_text'}
 
 
@@ -24,6 +24,10 @@ def _resolve_labels_path() -> str:
     v2_labeled = os.path.join('data', 'dataset_CLEANED_v2_labeled.csv')
     if os.path.exists(v2_labeled):
         return v2_labeled
+
+    labeled = os.path.join('data', 'dataset_LABELED.csv')
+    if os.path.exists(labeled):
+        return labeled
 
     return DEFAULT_LABELS_FILE_PATH
 
