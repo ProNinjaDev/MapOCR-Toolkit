@@ -221,18 +221,6 @@ def build_plotly_figure(
     scale: float,
     map_name: str,
 ) -> go.Figure:
-    """
-    Строит Plotly-фигуру: фоновое изображение + цветные боксы + hover.
-
-    Трейс (trace) = один слой данных на графике.
-    На каждый класс создаём два трейса:
-      Trace A — видимые прямоугольные контуры (go.Scatter lines).
-                Все боксы одного класса объединены None-разделителями
-                в один трейс — это быстрее, чем отдельный трейс на бокс.
-      Trace B — невидимые точки в центрах боксов (go.Scatter markers,
-                opacity=0) — нужны только для hover при наведении мыши.
-    Оба трейса связаны legendgroup — клик в легенде скрывает оба сразу.
-    """
     h_scaled, w_scaled = img_array.shape[:2]
     fig = go.Figure()
 
@@ -316,10 +304,6 @@ def build_plotly_figure(
     return fig
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  Точка входа
-# ─────────────────────────────────────────────────────────────────────────────
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description='Визуализация предсказаний ансамбля CNN+RNN (Issue #12)',
@@ -327,15 +311,15 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument('--map', required=True,
                         help='Имя TIF-файла, например: img20250920_20532456.tif')
-    parser.add_argument('--scale', type=float, default=0.15,
-                        help='Коэффициент уменьшения карты (0.15 = 15%% от оригинала)')
+    parser.add_argument('--scale', type=float, default=0.4,
+                        help='Коэффициент уменьшения карты (0.4 = 15%% от оригинала)')
     parser.add_argument('--cnn-weight', type=float, default=0.65,
                         help='Вес CNN в ансамбле. Вес RNN = 1 - cnn_weight.')
     parser.add_argument('--output', type=Path,
                         default=PROJECT_ROOT / 'outputs' / 'map_annotated.html',
                         help='Куда сохранить HTML.')
     parser.add_argument('--batch-size', type=int, default=64,
-                        help='Размер батча при инференсе.')
+                        help='Размер батча при инференсе')
     parser.add_argument('--diagnose', action='store_true',
                         help='Показать примеры raw global_box и выйти без построения карты.')
     return parser.parse_args()
@@ -383,7 +367,6 @@ def main() -> None:
 
     print(f'[INFO] Найдено {len(df_map)} записей для карты "{map_name}".')
 
-    # Показываем 3 примера при каждом запуске — удобно для отладки
     _diagnose_box_format(df_map, n_samples=3)
 
     records: list[dict] = []
@@ -445,8 +428,6 @@ def main() -> None:
     new_h = max(1, int(orig_h * args.scale))
     print(f'[INFO] Масштабированный: {new_w}x{new_h} px (scale={args.scale:.0%}).')
 
-    # LANCZOS — лучший алгоритм уменьшения изображения:
-    # сохраняет чёткость мелкого текста лучше, чем NEAREST или BILINEAR
     pil_img_small = pil_img.resize((new_w, new_h), Image.LANCZOS)
     img_array = np.array(pil_img_small)
 
@@ -456,7 +437,7 @@ def main() -> None:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     fig.write_html(
         str(args.output),
-        include_plotlyjs='cdn',  # Plotly.js (~3 МБ) грузится с CDN, не встраивается в файл
+        include_plotlyjs='cdn',
         full_html=True,
     )
 
