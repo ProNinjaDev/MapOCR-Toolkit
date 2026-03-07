@@ -10,6 +10,7 @@ cleared_images/
 temp_images/
 models/cleaner.pickle
 data/raw_demo_text/
+outputs/
 structure_proj.md
 
 *.log
