@@ -96,7 +96,7 @@
 ### CNN — классификация по стилю шрифта
 
 <p align="center">
-  <img src="Diagrams/cnn_diagram.png" alt="Архитектура CNN" width="500"/>
+  <img src="Diagrams/cnn_diagram_new.png" alt="Архитектура CNN" width="500"/>
   <br/><em>Вход: кроп 200×60 px → два Conv-блока → Dense(5, Softmax)</em>
 </p>
 
@@ -108,7 +108,7 @@ Conv2D(32) → MaxPool(2×2) → Conv2D(64) → MaxPool(2×2)
 ### RNN/LSTM — классификация по тексту
 
 <p align="center">
-  <img src="Diagrams/rnn_diagram.png" alt="Архитектура RNN" width="500"/>
+  <img src="Diagrams/rnn_diagram_new.png" alt="Архитектура RNN" width="500"/>
   <br/><em>Вход: посимвольная one-hot последовательность → LSTM(128) → Dense(5, Softmax)</em>
 </p>
 
