@@ -75,7 +75,7 @@ def load_raw_data_paths_and_labels() -> Tuple[List[Tuple[str, str, str]], Set[st
                 continue
             
             # пропуск ненужных лейблов
-            if label in EXCLUDED_LABELS:
+            if label.lower() in EXCLUDED_LABELS:
                 continue
 
             image_full_path = os.path.join(RAW_IMAGES_DIR, filename)
