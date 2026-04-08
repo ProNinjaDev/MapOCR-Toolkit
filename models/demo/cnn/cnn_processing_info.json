@@ -7,28 +7,24 @@
         "city": 0,
         "city_major": 1,
         "hydro": 2,
-        "other": 3,
-        "settlement": 4
+        "settlement": 3
     },
     "int_to_class_map": {
         "0": "city",
         "1": "city_major",
         "2": "hydro",
-        "3": "other",
-        "4": "settlement"
+        "3": "settlement"
     },
     "class_to_int": {
         "city": 0,
         "city_major": 1,
         "hydro": 2,
-        "other": 3,
-        "settlement": 4
+        "settlement": 3
     },
     "int_to_class": {
         "0": "city",
         "1": "city_major",
         "2": "hydro",
-        "3": "other",
-        "4": "settlement"
+        "3": "settlement"
     }
 }
