@@ -7,6 +7,7 @@ import pandas as pd
 DEFAULT_LABELS_FILE_PATH = os.path.join('data', 'dataset_CLEANED.csv')
 RAW_IMAGES_DIR = os.path.join('data', 'dataset_crops_paddle')
 REQUIRED_COLUMNS = {'filename', 'label', 'ocr_text'}
+EXCLUDED_LABELS: set[str] = {'other'}
 
 
 def _resolve_labels_path() -> str:
@@ -71,6 +72,10 @@ def load_raw_data_paths_and_labels() -> Tuple[List[Tuple[str, str, str]], Set[st
                 continue
 
             if not label or label.lower() == 'nan':
+                continue
+            
+            # пропуск ненужных лейблов
+            if label in EXCLUDED_LABELS:
                 continue
 
             image_full_path = os.path.join(RAW_IMAGES_DIR, filename)
