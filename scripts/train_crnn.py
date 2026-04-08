@@ -313,9 +313,18 @@ def main():
         marker = ' ←' if name == 'CRNN (Issue #13)' else ''
         print(f'{name:<28} {vals["acc"]:>10.3f} {vals["macro"]:>10.3f}{marker}')
 
+    # labels=list(range(num_classes)) гарантирует что per_cls[i] всегда
+    # соответствует классу с индексом i, даже если класс не встретился в y_val
+    from sklearn.metrics import f1_score as sk_f1_score
+    per_cls_fixed = sk_f1_score(
+        y_val_int, y_pred_int,
+        labels=list(range(num_classes)),
+        average=None,
+        zero_division=0,
+    )
     print(f'\nper-class f1 (CRNN):')
     for i, cls in enumerate(class_names):
-        f1 = per_cls[i] if i < len(per_cls) else 0.0
+        f1 = float(per_cls_fixed[i])
         print(f'  {cls:<14} f1={f1:.2f}')
 
     print(f'\n[INFO] готово. результаты: {SAVE_DIR}')
