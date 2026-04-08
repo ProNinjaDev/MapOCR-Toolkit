@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 from sklearn.utils.class_weight import compute_class_weight
 from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.callbacks import EarlyStopping
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(current_dir)
@@ -119,14 +120,22 @@ def main():
     print("[INFO] Creating CNN model...")
     model = create_cnn_model(input_shape=input_shape, num_classes=num_classes)
     model.summary()
+    
+    early_stopping = EarlyStopping(
+        monitor='val_loss',
+        patience=3,
+        restore_best_weights=True,
+        verbose=1,
+    )
 
     print("[INFO] Training the model...")
     history = model.fit(
         x_train, y_train,
         validation_data=(x_val, y_val),
-        epochs=EPOCHS,
+        epochs=EPOCHS,  
         batch_size=BATCH_SIZE,
         class_weight=class_weight_dict,
+        callbacks=[early_stopping],
     )
     print("[INFO] Training finished")
 
