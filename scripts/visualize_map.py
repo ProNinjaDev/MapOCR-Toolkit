@@ -380,9 +380,13 @@ def main() -> None:
             skipped += 1
             continue
         x1, y1, x2, y2 = box
+        
+        # global_box и confidence нужны для nms
         records.append({
             'filename': str(row['filename']).strip(),
             'ocr_text': str(row['ocr_text']),
+            'global_box': str(row['global_box']),
+            'confidence': float(row['confidence']) if 'confidence' in df_map.columns else 0.0,
             'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2,
         })
     
