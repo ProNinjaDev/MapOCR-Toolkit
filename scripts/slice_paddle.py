@@ -180,6 +180,14 @@ def process_tiffs():
             print(f"\n[CRITICAL ERROR] {tiff_file}: {e}")
             import traceback
             traceback.print_exc()
+    
+    # дедупликация от перекрытия скользящего окна
+    if dataset_records:
+        from mapocr_toolkit.utils.nms import nms_filter
+        before = len(dataset_records)
+        dataset_records = nms_filter(dataset_records, iou_threshold=0.5)
+        print(f'[NMS] удалено дублей: {before - len(dataset_records)} '
+              f'(осталось: {len(dataset_records)})')
 
     if dataset_records:
         df = pd.DataFrame(dataset_records)
