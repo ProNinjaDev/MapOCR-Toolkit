@@ -322,6 +322,9 @@ def parse_args() -> argparse.Namespace:
                         help='Размер батча при инференсе')
     parser.add_argument('--diagnose', action='store_true',
                         help='Показать примеры raw global_box и выйти без построения карты.')
+    parser.add_argument('--iou-threshold', type=float, default=0.5,
+                        help='порог IoU для NMS-дедупликации боксов (0.5 по умолчанию)',
+    )
     return parser.parse_args()
 
 
@@ -377,11 +380,24 @@ def main() -> None:
             skipped += 1
             continue
         x1, y1, x2, y2 = box
+        
+        # global_box и confidence нужны для nms
         records.append({
             'filename': str(row['filename']).strip(),
             'ocr_text': str(row['ocr_text']),
+            'global_box': str(row['global_box']),
+            'confidence': float(row['confidence']) if 'confidence' in df_map.columns else 0.0,
             'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2,
         })
+    
+    # внедряем nms
+    from mapocr_toolkit.utils.nms import nms_filter
+    before = len(records)
+    records = nms_filter(records, iou_threshold=args.iou_threshold)
+    removed = before - len(records)
+    if removed:
+        print(f'[NMS] удалено дублей: {removed} '
+              f'(осталось: {len(records)}, порог IoU={args.iou_threshold})')
 
     if skipped:
         print(f'[WARNING] {skipped} записей пропущено (невалидный global_box).')
